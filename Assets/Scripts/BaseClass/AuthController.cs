@@ -8,10 +8,6 @@ public class AuthController : MonoBehaviour {
 
     [SerializeField] private List<IWindows> windows = new List<IWindows>();
 
-    private UserInfo user_data;
-    private PrizeInfo prizeInfo;
-    private int statsUser_ID;
-
     private void Awake() {
         if (Instance != null) {
             Destroy(this);
@@ -23,7 +19,11 @@ public class AuthController : MonoBehaviour {
 
     private IEnumerator Start() {
         yield return new WaitForSeconds(0.5f);
-        OpenWindows(WindowsType.login);
+
+        if (PlayerPrefs.HasKey(BaseData.BaseDataName))
+            OpenWindows(WindowsType.enter_main_param);
+        else
+            OpenWindows(WindowsType.enter_base_param);
     }
 
     public void InitWindows(IWindows window) {
@@ -41,37 +41,5 @@ public class AuthController : MonoBehaviour {
             else
                 windows[i].CloseWindows();
         }
-    }
-
-    public void SetUserData(UserInfo data) {
-        user_data = data;
-    }
-
-    public UserInfo GetUserInfo() {
-        return user_data;
-    }
-
-    public void SetPrizeData(PrizeInfo prize) {
-        prizeInfo = prize;
-    }
-
-    public PrizeInfo GetPrizeInfo() {
-        return prizeInfo;
-    }
-
-    public void ClearPrizeInfo() {
-        prizeInfo = null;
-    }
-
-    public void SetStatsUserID(int _id) {
-        statsUser_ID = _id;
-    }
-
-    public int GetStatsUserID() {
-        return statsUser_ID;
-    }
-
-    public void ClearStatsID() {
-        statsUser_ID = -1;
     }
 }

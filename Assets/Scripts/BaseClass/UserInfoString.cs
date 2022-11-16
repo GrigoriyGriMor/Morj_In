@@ -19,9 +19,9 @@ public class UserInfoString : MonoBehaviour
             yield return new WaitForFixedUpdate();
 
         b_lookPrizeInfo.onClick.AddListener(() => {
-            AuthController.Instance.SetStatsUserID(select_user_id);
+            //AuthController.Instance.SetStatsUserID(select_user_id);
             Debug.LogError(select_user_id);
-            AuthController.Instance.OpenWindows(WindowsType.get_out_prize_info);
+           // AuthController.Instance.OpenWindows(WindowsType.get_out_prize_info);
         });
     }
 
