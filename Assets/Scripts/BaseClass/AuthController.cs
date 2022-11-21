@@ -8,6 +8,8 @@ public class AuthController : MonoBehaviour {
 
     [SerializeField] private List<IWindows> windows = new List<IWindows>();
 
+    private WareHoueseData wh_data = null;
+
     private void Awake() {
         if (Instance != null) {
             Destroy(this);
@@ -42,4 +44,18 @@ public class AuthController : MonoBehaviour {
                 windows[i].CloseWindows();
         }
     }
+
+#region add new wh
+    public void SetCurrentWH(WareHoueseData _data) {
+        wh_data = _data;
+    }
+
+    public WareHoueseData GetCurrentWH() {
+        return wh_data;
+    }
+
+    public void ClearCurrentWh() {
+        wh_data = null;
+    }
+#endregion
 }

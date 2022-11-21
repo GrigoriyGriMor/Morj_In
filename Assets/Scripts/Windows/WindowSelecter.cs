@@ -24,6 +24,7 @@ public class WindowSelecter : MonoBehaviour
 
             t_presentText.text = $"Приветствую \n{PlayerPrefs.GetString(BaseData.UserName)}!";
 
+            yield return new WaitForSeconds(1);
             helloBlock.SetTrigger("Enter");
         }
         else {
@@ -43,5 +44,10 @@ public class WindowSelecter : MonoBehaviour
 
         b_OpenBaseParamWindow.onClick.AddListener(() => AuthController.Instance.OpenWindows(WindowsType.enter_base_param));
         b_OpenCalculateWindow.onClick.AddListener(() => AuthController.Instance.OpenWindows(WindowsType.enter_main_param));
+
+        if (PlayerPrefs.HasKey(BaseData.BaseDataName))
+            AuthController.Instance.OpenWindows(WindowsType.enter_main_param);
+        else
+            AuthController.Instance.OpenWindows(WindowsType.enter_base_param);
     }
 }

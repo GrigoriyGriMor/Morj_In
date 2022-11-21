@@ -42,5 +42,8 @@ public class BaseParametrs {
     public float logistyc_price;
     public int logistyc_multiplay;
 
+    public float market_comisy;
+    public float other_tax;
+
     public List<WareHoueseData> wrs_list = new List<WareHoueseData>();
 }
