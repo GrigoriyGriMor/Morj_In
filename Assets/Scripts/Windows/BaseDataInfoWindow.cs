@@ -9,7 +9,7 @@ public class BaseDataInfoWindow : MonoBehaviour, IWindows {
 
     [Header("Main Data")]
     [SerializeField] private TMP_InputField t_CurrencyRate;
-    [SerializeField] private TMP_Dropdown logistycType;
+    [SerializeField] private ToggleGroup logistycType;
     [SerializeField] private TMP_InputField priceInCurrency;
     [SerializeField] private TMP_InputField basePriceMultiplay;
     [SerializeField] private TMP_InputField marketComisy;
@@ -78,7 +78,8 @@ public class BaseDataInfoWindow : MonoBehaviour, IWindows {
             base_data = JsonUtility.FromJson<BaseParametrs>(PlayerPrefs.GetString(BaseData.BaseDataName));
 
             t_CurrencyRate.text = base_data.currency_rate.ToString();
-            logistycType.SetValueWithoutNotify(base_data.logistyc_type);
+
+            logistycType.NotifyToggleOn(logistycType.transform.GetChild(base_data.logistyc_type).GetComponent<Toggle>(), true);
 
             priceInCurrency.text = base_data.logistyc_price.ToString();
             basePriceMultiplay.text = base_data.logistyc_multiplay.ToString();
@@ -100,7 +101,11 @@ public class BaseDataInfoWindow : MonoBehaviour, IWindows {
 
     public string ConvertBDToString(BaseParametrs param) {
         param.currency_rate = float.Parse(t_CurrencyRate.text);
-        param.logistyc_type = logistycType.value;
+        
+        for (int i = 0; i < logistycType.transform.childCount; i++)
+            if (logistycType.transform.GetChild(i).GetComponent<Toggle>().isOn)
+                param.logistyc_type = i;
+
         param.logistyc_price = float.Parse(priceInCurrency.text);
         param.logistyc_multiplay = int.Parse(basePriceMultiplay.text);
         param.market_comisy = float.Parse(marketComisy.text);
